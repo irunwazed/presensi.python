@@ -1,8 +1,7 @@
 from cryptography.fernet import Fernet
 import runpy
 
-# Masukkan key hasil generate tadi di sini (harus sama dengan yang dipakai untuk encrypt)
-key = b"leic57x2IYCd_VCgVd-0lMesjYuOkt0aRpy-Ez1dmhg="
+key = b"5yOnRRrVpPLC6eyPc7QD17mPTan913vHzMFwzRAQwUE="
 
 cipher = Fernet(key)
 
