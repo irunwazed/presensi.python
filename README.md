@@ -1,15 +1,20 @@
 
-# Running Virtual Environment Python
+# Running 
+
+
+## Windows
 ```
-source run/bin/activate  
+start.bat
 ```
 
-# running server
+## Mac or Linux
 ```
-mitmdump -s run.py       
+chmod +x start.sh
+./start.sh
 ```
 
-akan muncul pesan berikut
+
+### akan muncul pesan berikut
 ```
 [06:54:04.208] Loading script server.py
 [06:54:04.209] HTTP(S) proxy listening at *:8080.
