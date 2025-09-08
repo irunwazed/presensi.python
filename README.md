@@ -1,14 +1,8 @@
 
 # Running Virtual Environment Python
 ```
-source venv/bin/activate  
+source run/bin/activate  
 ```
-
-## install
-```
-pip install -r requirements.txt
-```
-
 
 # running server
 ```
