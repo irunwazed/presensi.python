@@ -1,5 +1,33 @@
 
+# Running Virtual Environment Python
+```
+source venv/bin/activate  
+```
 
+## install
+```
+pip install -r requirements.txt
+```
+
+
+# running server
 ```
 mitmdump -s server.py       
 ```
+
+akan muncul pesan berikut
+```
+[06:54:04.208] Loading script server.py
+[06:54:04.209] HTTP(S) proxy listening at *:8080.
+[06:54:04.210] Mitmproxy running on local IPs: 10.55.xxx.xxx
+Mitmproxy running on local IPs: 10.55.xxx.xxx
+```
+
+# setting
+atur sesuai ip serta port 8080
+
+
+# login ulang
+
+# get log
+ambil file log.txt

@@ -1,7 +1,33 @@
-# intercept.py
-from mitmproxy import http
+from mitmproxy import ctx
+import socket
 import json
 from datetime import datetime
+from mitmproxy import http
+import netifaces
+
+LOG_FILE = "log.txt"
+
+
+def running():
+    ips = get_all_local_ips()
+    if ips:
+        ctx.log.info(f"Mitmproxy running on local IPs: {', '.join(ips)}")
+        print(f"Mitmproxy running on local IPs: {', '.join(ips)}")
+    else:
+        ctx.log.info("Mitmproxy running, but no local IPs found.")
+        print("Mitmproxy running, but no local IPs found.")
+
+def get_all_local_ips():
+    ips = []
+    for iface in netifaces.interfaces():
+        addrs = netifaces.ifaddresses(iface)
+        ipv4 = addrs.get(netifaces.AF_INET)
+        if ipv4:
+            for addr in ipv4:
+                ip = addr.get('addr')
+                if ip and (ip.startswith("192.") or ip.startswith("10.") or ip.startswith("172.")):
+                    ips.append(ip)
+    return ips
 
 LOG_FILE = "log.txt"
 
@@ -21,37 +47,15 @@ def log_to_file(data: str):
     with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(data)
 
+
 def request(flow: http.HTTPFlow) -> None:
     req = flow.request
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
-    log = separator("=")
-    log += f"[{timestamp}] >>> HTTP REQUEST <<<\n"
-    log += separator()
-    log += f"{req.method} {req.path} HTTP/1.1\n"
-    log += f"Host: {req.host}\n"
-    log += format_headers(req.headers) + "\n"
 
-    if req.content:
-        log += "\n" + try_pretty_json(req.get_text()) + "\n"
+    if "/login" in req.path:
+        log = separator("=")
+        if req.content:
+            log += "\n" + try_pretty_json(req.get_text()) + "\n"
 
-    log_to_file(log)
-    print(log)
-
-def response(flow: http.HTTPFlow) -> None:
-    res = flow.response
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    log = separator()
-    log += f"[{timestamp}] <<< HTTP RESPONSE <<<\n"
-    log += separator()
-    log += f"HTTP/1.1 {res.status_code} {res.reason}\n"
-    log += format_headers(res.headers) + "\n"
-
-    if res.content:
-        log += "\n" + try_pretty_json(res.get_text()) + "\n"
-
-    log += separator("=") + "\n\n"
-
-    log_to_file(log)
-    print(log)
+        log_to_file(log)
+        print(log)
