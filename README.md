@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 # running server
 ```
-mitmdump -s server.py       
+mitmdump -s run.py       
 ```
 
 akan muncul pesan berikut
