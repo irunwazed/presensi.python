@@ -1,7 +1,7 @@
 from cryptography.fernet import Fernet
 import runpy
 
-key = b"Ghh5UersxySH5ied1UKyBF2hg88JfXEc9MxzOydYvOo="
+key = b"C6MufNFbVJwx5SZAOUKWQ7QLR1flPtc-ZfKPwB0M184="
 
 cipher = Fernet(key)
 

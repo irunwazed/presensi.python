@@ -11,7 +11,7 @@ source run/bin/activate
 
 echo "Meng-upgrade pip dan menginstall dependencies..."
 pip install --upgrade pip
-pip install mitmproxy
+pip install mitmproxy netifaces
 
 echo "Menjalankan mitmdump..."
 mitmdump -s run.py
